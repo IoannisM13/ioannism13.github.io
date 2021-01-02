@@ -48,7 +48,7 @@ result <-
   mean(
     replicate(
       N,
-      monty_hall_sim(change = FALSE)
+      monty_hall_sim()
     )
   )
 
