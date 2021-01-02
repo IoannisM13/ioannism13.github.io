@@ -1,37 +1,57 @@
-## Welcome to GitHub Pages {.tabset}
+# Monty Hall Simulation 
 
-You can use the [editor on GitHub](https://github.com/IoannisM13/ioannism13.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
+```r
+# Define function
+monty_hall_sim <- function(change = TRUE) {
+  
+  # Define slots
+  slots <- c(1:3)
+  
+  # Make 1st selection
+  selection_1 <- sample(slots, 1)
+  
+  # Select winning slot 
+  win_slot <- sample(slots, 1)
+  
+  # Non-winning slots
+  non_win_slots <- setdiff(slots, win_slot)
+  
+  # Open non-winning slot that is also not plr's sel
+  open_lose_slot <- 
+    if (win_slot == selection_1) {
+      sample(non_win_slots, 1)
+    } else {
+      setdiff(non_win_slots, selection_1)
+    }
+  
+  slots_remaining <- setdiff(slots, open_lose_slot)
+  
+  selection_2_final <- 
+    if (change == TRUE) {
+      setdiff(slots_remaining, selection_1)
+    } else {
+      selection_1
+    }
+  
+  result <- 
+    if_else(win_slot == selection_2_final, 1, 0)  
+  
+  return(result)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+}
 
-### Markdown
+## Run simulation
+### Set N trials 
+N <- 100000
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+result <-  
+  mean(
+    replicate(
+      N,
+      monty_hall_sim(change = FALSE)
+    )
+  )
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+result
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/IoannisM13/ioannism13.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
