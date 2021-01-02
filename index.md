@@ -1,4 +1,4 @@
-# Monty Hall Simulation 
+# Monty Hall Problem
 
 ```r
 # Define function
@@ -16,7 +16,7 @@ monty_hall_sim <- function(change = TRUE) {
   # Non-winning slots
   non_win_slots <- setdiff(slots, win_slot)
   
-  # Open non-winning slot that is also not plr's sel
+  # Open non-winning slot that is also not players' selection
   open_lose_slot <- 
     if (win_slot == selection_1) {
       sample(non_win_slots, 1)
